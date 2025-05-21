@@ -97,9 +97,9 @@ net (1,3,3) (0,9,9)
   <h2>Project Details</h2>
   <ul>
     <li><strong>Course:</strong> CSCE3304 – Spring 2025</li>
-    <li><strong>Project:</strong> Maze Routing in Jupyter with Lee’s Algorithm</li>
+    <li><strong>Project:</strong> Maze Routing with Lee’s Algorithm</li>
     <li><strong>Status:</strong> ✅ Final Version – Fully Functional</li>
-    <li><strong>Notebook File:</strong> <code>MazeRouter.ipynb</code></li>
+    <li><strong>Notebook File:</strong> <code>Router_Heuristic.ipynb</code></li>
   </ul>
 
   <hr>
