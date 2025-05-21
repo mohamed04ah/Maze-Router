@@ -1,113 +1,119 @@
-# Maze Router - Lee's Algorithm
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
 
-## Overview
+  <h1>Maze Router</h1>
 
-This project implements a **grid-based maze router** using **Lee's algorithm** to find the shortest path between two pins on the **same routing layer**. The system avoids obstacles and accounts for direction-based costs.
+  <h2>Overview</h2>
+  <p>
+    This project implements a <strong>multi-layer grid-based maze router</strong> using a modified version of <strong>Lee's algorithm</strong>. It computes optimal routing paths for multiple nets with support for obstacles, directional and via penalties, and interactive visualization via a GUI.
+  </p>
+  <p>This notebook-based router supports:</p>
+  <ul>
+    <li>Multi-layer routing with up to 2 layers</li>
+    <li>Multiple nets with multiple pins</li>
+    <li>Obstacle avoidance and via switching</li>
+    <li>Direction and via cost penalties</li>
+    <li>Heuristic-based routing and backtracking</li>
+    <li>Interactive GUI visualization using <code>tkinter</code></li>
+  </ul>
+  <p>The project is written in Python and implemented in a Jupyter Notebook for interactive experimentation and development.</p>
 
-Currently, the router supports:
+  <hr>
 
-- **Same-layer routing only** 
-- **A single net with 2 pins**
-- **Obstacle avoidance**
-- **cost penalties**
-
-The project is implemented in Python and structured for extension to support multi-layer and multi-net scenarios in the future.
-
----
-
-## Input File Format
-
-The router expects an input file named `input1.txt` with the following format:
-
-```
-<rows>, <cols>, <DirectionPenalty>, <ViaPenalty>
-OBS (<layer>, <row>, <col>)
-OBS (<layer>, <row>, <col>)
+  <h2>Input File Format</h2>
+  <p>The router expects an input file (e.g. <code>input1.txt</code>) with the following format:</p>
+  <pre>
+&lt;rows&gt;, &lt;cols&gt;, &lt;DirectionPenalty&gt;, &lt;ViaPenalty&gt;
+OBS (&lt;layer&gt;, &lt;row&gt;, &lt;col&gt;)
+net (&lt;layer&gt;, &lt;row&gt;, &lt;col&gt;) (&lt;layer&gt;, &lt;row&gt;, &lt;col&gt;) ...
 ...
-net1 (<layer>, <row>, <col>) (<layer>, <row>, <col>)
-```
+  </pre>
 
-### Example:
-```
-5, 5, 1, 10
-OBS (0, 1, 2)
-OBS (0, 2, 2)
-OBS (0, 3, 2)
-net1 (0, 0, 2) (0, 4, 2)
-```
+  <h3>Example:</h3>
+  <pre>
+10,10,3,5
+OBS (0,2,2)
+OBS (1,4,4)
+net (0,0,0) (0,0,5)
+net (1,3,3) (0,9,9)
+  </pre>
+  <blockquote>
+    ⚠️ Format: <strong>(layer, row, col)</strong><br>
+    Internally accessed as: <code>grid[layer][row][col]</code>
+  </blockquote>
 
-> ⚠️ Axis format: **(layer, row, col)**  
-> Internally: `grid[layer][row][col]`
+  <hr>
 
----
+  <h2>How to Run</h2>
+  <ol>
+    <li>Place your input file (e.g. <code>input1.txt</code>) in the working directory.</li>
+    <li>Open <code>MazeRouter.ipynb</code> in Jupyter Notebook:
+      <pre><code>jupyter notebook MazeRouter.ipynb</code></pre>
+    </li>
+    <li>Run all notebook cells (Shift + Enter).</li>
+    <li>When the GUI launches, enter the filename (e.g. <code>input1.txt</code>).</li>
+    <li>The routed paths and net costs will be displayed interactively.</li>
+  </ol>
 
-## How to Run
+  <hr>
 
-1. Place your input in a file named `input1.txt` in the same directory as the script.
-2. Run the script using Python:
-   ```bash
-   python maze_router.py
-   ```
-3. You’ll see:
-   - Grid dimensions and routing penalties
-   - Obstacle positions
-   - Loaded net endpoints
-   - Path coordinates (if found)
-   - Total cost of the path
+  <h2>Features</h2>
+  <ul>
+    <li>✅ Modified Lee’s Algorithm (2D and 3D)</li>
+    <li>✅ Same-layer and cross-layer routing</li>
+    <li>✅ Directional and via penalty control</li>
+    <li>✅ Dynamic back-propagation to build final paths</li>
+    <li>✅ GUI for layer-wise routing visualization</li>
+    <li>✅ Supports multi-pin nets</li>
+    <li>✅ Cost display per net</li>
+  </ul>
 
----
+  <hr>
 
-## Features
+  <h2>Limitations</h2>
+  <ul>
+    <li>No Dynamic Re-routing: Once a path is blocked by earlier nets, failed nets are skipped entirely.</li>
+    <li>No Congestion Awareness Beyond Cost: Routing decisions are cost-based but do not consider grid congestion over time.</li>
+    <li>No Parallelism: All nets are routed sequentially, missing out on optimization opportunities via concurrent routing or lookahead.</li>
+  </ul>
 
-- **Lee’s algorithm** for shortest-path routing
-- **Obstacle parsing** and detection
-- **Penalty costs** for non-preferred routing directions
-- **Back-propagation** to recover the final route
-- **Console output** of the routed coordinates
+  <hr>
 
----
+  <h2>Future Enhancements</h2>
+  <ul>
+    <li>Net path export to file (CSV or JSON)</li>
+    <li>Dynamic in-GUI obstacle/net placement</li>
+    <li>Real-time routing animation</li>
+    <li>Support for more than 2 layers</li>
+    <li>Integration with congestion-aware heuristics</li>
+  </ul>
 
-## Limitations
+  <hr>
 
-- Only supports:
-  - **Same-layer routing**
-  - **One net with two pins**
-- No support for:
-  - **Multiple nets**
-  - **Vias or multi-layer routing**
-  - **Rip-up and re-route**
-  - **Visualization or output file writing**
+  <h2>Project Details</h2>
+  <ul>
+    <li><strong>Course:</strong> CSCE3304 – Spring 2025</li>
+    <li><strong>Project:</strong> Maze Routing in Jupyter with Lee’s Algorithm</li>
+    <li><strong>Status:</strong> ✅ Final Version – Fully Functional</li>
+    <li><strong>Notebook File:</strong> <code>MazeRouter.ipynb</code></li>
+  </ul>
 
----
+  <hr>
 
-## Future Work
+  <h2>Authors</h2>
+  <p><strong>Mohamed Ahmed, Youssef Elmahdy, Hussien Heggi</strong></p>
 
-Planned improvements:
+  <hr>
 
-- Support for multi-pin and multi-net routing
-- Multi-layer routing with via penalties
-- Rip-up and re-route strategies
-- Routing order heuristics (Bonus)
-- Routing result export and visualization
-- GUI or web-based visualization of routing results
+  <h2>License</h2>
+  <p>
+    This project is licensed for academic and educational use only.
+    Commercial redistribution is not permitted without prior written consent.
+  </p>
 
----
-
-## Project Details
-
-- Course: **CSCE3304 – Spring 2025**
-- Project: **Maze Routing with Lee’s Algorithm**
-- Status: **Milestone 1**
-- Repository initialized with basic routing functionality
-
----
-
-## Authors
-
-*Mohamed Ahmed, Youssef Elmahdy, Hussien Heggi *
-
----
-
-## License
-
-This project is licensed for academic use only. Redistribution or commercial use is not permitted without explicit permission.
+</body>
+</html>
